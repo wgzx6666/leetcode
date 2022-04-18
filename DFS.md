@@ -74,3 +74,4 @@ for(int i=0;i<nums.size();i++)
     use[i]=0;
 }
 ```
+效果显著，用时从644ms提升到4ms
