@@ -75,3 +75,44 @@ for(int i=0;i<nums.size();i++)
 }
 ```
 效果显著，用时从644ms提升到4ms
+## 面试题 08.07. 无重复字符串的排列组合
+无重复字符串的排列组合。编写一种方法，计算某字符串的所有排列组合，字符串每个字符均不相同。
+```
+示例1:
+输入：S = "qwe"
+输出：["qwe", "qew", "wqe", "weq", "ewq", "eqw"]
+```
+与第一个全排列一样，只不过排列内容从数字变成字符，就是套了一个壳，还按照原来的方式，use数组记录各位是否使用过
+```cpp
+class Solution {
+public:
+    vector <string> ans;
+    string tmp;
+    vector <int> use;
+    void backtrace(string &S)
+    {
+        if(S.length()==tmp.length())
+        {
+            ans.push_back(tmp);
+            return;
+        }
+        for(int i=0;i<S.length();i++)
+        {
+            string t;//此处我犯了一个错误，最开始把这个临时变量放在全局了，导致每一层它都会变，无法完成在每一层的记录功能
+            if(use[i]) continue;
+            use[i]=1;
+            t=tmp;
+            tmp+=S.substr(i,1);
+            backtrace(S);
+            use[i]=0;
+            tmp=t;
+        }
+    }
+    vector<string> permutation(string S) {
+        int n=S.length();
+        use.assign(n,0);
+        backtrace(S);
+        return ans;
+    }
+};
+```
