@@ -66,7 +66,7 @@ if(tmp.size()==nums.size())//回溯函数先写返回条件，到达叶子节点
 for(int i=0;i<nums.size();i++)
 {
     if(use[i]) continue;
-    if(i>0&&use[i-1]==0&&nums[i]==nums[i-1]) continue;//与上题比增加此步骤
+    if(i>0&&use[i-1]==0&&nums[i]==nums[i-1]) continue;//与上题比增加此步骤。剪枝是什么时候不回溯(直接continue)，而不是什么条件下回溯
     use[i]=1;
     tmp.push_back(nums[i]);
     backtrace(nums);
